@@ -1,0 +1,22 @@
+val l = List(0, 1, 2)
+
+def concat[A](xs: List[A], x: A): List[A] = {
+  x :: xs
+}
+
+// ---------
+// reverse can be implemented using foldLeft
+
+l.foldLeft[List[Int]](Nil)((x, xs) => concat(x, xs))
+// l.foldLeft(List[Int]())(concat) // shorter version
+
+l.foldRight[List[Int]](Nil)((x, xs) => concat(xs, x))
+
+
+// ---------
+// append can be implemented using foldRight
+
+l.foldLeft(List[Int](3))((x, xs) => concat(x, xs))
+// l.foldLeft(List[Int]())(concat) // shorter version
+
+l.foldRight(List[Int](3))((x, xs) => concat(xs, x))

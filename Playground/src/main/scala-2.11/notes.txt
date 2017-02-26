@@ -1,0 +1,105 @@
+Variance
+
+C[+T]   =>  C[B] <: C[C]    if  B <: C
+C[-T]   =>  C[B] <: C[C]    if  B >: C
+C[T]    =>  C[B] = C[C]     only if  B = C
+
+Covariant types may appear in method result types OR method param types if lower bound is used
+
+trait C[+T] {
+    def m():T
+}
+
+OR
+
+trait C[+T] {
+  def m[U >: T](p: U)
+}
+
+Contravariant types may appear in method param types OR method result types if upper bound is used
+
+trait C[-T] {
+    def m(p: T)
+}
+
+OR
+
+trait C[-T] {
+  def m[U <: T](): U
+}
+
+Invariant types may appear anywhere
+
+trait C[T] {
+    def m(p: T): T
+}
+
+===============================================================================================
+
+Generators/own types used in for
+
+for(x <- C) yield ... can be used if C implements the following functions:
+    def map[B](f: A => B): C[B]
+    def flatMap[B](f: A => C[B]): C[B]
+    def withFilter(p: A => Boolean): C[A]    - in case for(x <- gen if(f...)) yield
+
+In Scala syntax of for is closely related to the following high order functions:
+
+def map[T, U](xs: List[T], f: T => U): List[U] =
+    for(x <- xs) yield f(x)
+
+def flatMap[T, U](xs: List[T], f: T => Iterable[U]): List[U] =
+    for(x <- xs, y <- f(x)) yield y
+
+def filter[T](xs: List[T], p: T => Boolean): List[T] =
+    for(x <- xs if p(x)) yield x
+
+===============================================================================================
+
+Pattern matching can be used within for (left hand side of the generator), because:
+
+pat <- expr
+
+automatically translates to:
+
+x <- expr withFilter {
+    case pat => true
+    case _ => false
+} map {
+    case pat => x
+}
+
+===============================================================================================
+
+Partial functions
+
+if the expected type is PartialFunction (extends Function) the following
+
+{case "ping" => "pong"}
+
+automatically translates to:
+
+new PartialFunction[String, String] {
+    def apply(x: String) = x match {
+        case "ping" => "pong"
+    }
+    def isDefinedAt(x: String) = x match {
+        case "ping" => true
+        case _ => false
+    }
+}
+
+===============================================================================================
+
+Parallelism
+
+val (v1, v2) = parallel(e1, e2)     // can be nested with other parallel
+
+// is the same as
+
+val t1 = task(e1)
+val t2 = task(e2)
+val v1 = t1.join
+val v2 = t2.join
+
+// join is returning result of expression, main thread waits until computed
