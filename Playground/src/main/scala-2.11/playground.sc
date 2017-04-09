@@ -7,6 +7,7 @@ object Obj {
 
 Obj()
 Obj(null)
+Obj(1) + Obj(2)
 
 def f1 = new Function1[Int, Int] {
   // every function under the hood
