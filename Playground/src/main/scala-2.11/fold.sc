@@ -16,7 +16,7 @@ l.foldRight[List[Int]](Nil)((x, xs) => concat(xs, x))
 // ---------
 // append can be implemented using foldRight
 
-l.foldLeft(List[Int](3))((x, xs) => concat(x, xs))
-// l.foldLeft(List[Int]())(concat) // shorter version
+l.foldLeft(List(3))((x, xs) => concat(x, xs))
+// l.foldLeft(List(3))(concat) // shorter version
 
-l.foldRight(List[Int](3))((x, xs) => concat(xs, x))
+l.foldRight(List(3))((x, xs) => concat(xs, x))
