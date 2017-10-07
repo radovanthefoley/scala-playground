@@ -70,7 +70,7 @@ class c {
 }
 
 
-class Bar(foo: String) {
+class Bar(foo: String) {  // val/var foo for public access
   // apply
   override def toString = "Bar " + foo
 }
@@ -156,3 +156,27 @@ def lengthFun[T](xs: List[T]): Int =
   (xs foldRight 0) ((_: T, res: Int) => res + 1)
 
 lengthFun(List(0, 2, 4, 7))
+
+type R = Double
+def compose(g:R=>R, h:R=>R) = (x:R) => g(h(x))
+val f = compose({_*2}, {_-1})
+val x = f(1)
+
+def faa(x: Int) = { x*x }
+def foo(x: Int) { x*x }  //! Unit returned, havoc! don't
+
+(1 to 5).reduceLeft( _+_ )
+
+val zscore = (mean:R, sd:R) => (x:R) => (x-mean)/sd
+zscore(2,3)(3)
+val zscoreGiven = zscore(2,3)
+zscoreGiven(3)
+
+()
+
+val xs = List(1,2,3)
+val ys = List(4,5,6)
+xs zip ys
+(xs zip ys) map { case (x,y) => x*y }
+//BAD
+//(xs zip ys) map( (x,y) => x*y )
