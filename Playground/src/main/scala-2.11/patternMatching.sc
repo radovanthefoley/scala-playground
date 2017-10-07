@@ -9,9 +9,9 @@ val emptyList2: List[Nothing] = Nil
 
 
 def listMatcher(list: List[Any]): String = list match {
-  case List(2 :: xs) => "contains list as only element starting with 2"
+  case List(2 :: xs) => "contains list starting with 2 as only element"
   case 1 :: 2 :: xs => "starts with 1 and 2"
-  case xs :: 4 :: Nil => "ends with 4"
+  case xs :: 4 :: Nil => "has at least two and ends with 4"
   case 4 :: Nil => "ends with 4"
   case x :: Nil => "has one element" // same as case List(x)
   case Nil => "is empty" // same as case List()
