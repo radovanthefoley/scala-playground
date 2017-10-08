@@ -10,3 +10,11 @@ class GarbageCan[-A] {
   def itemsCount: Int = this.items.size
 
 }
+
+// SUBTYPING
+trait Trash
+class Plastic extends Trash
+
+val g: GarbageCan[Plastic] = new GarbageCan[Trash]
+// following does not compile
+//val g2: GarbageCan[Trash] = new GarbageCan[Plastic]

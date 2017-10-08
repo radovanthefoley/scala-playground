@@ -27,6 +27,7 @@ class VendingMachine[+A](val currentItem: Option[A], items: List[A]) {
 val colasVM: VendingMachine[Cola] =
   new VendingMachine(List(new Cola, new Cola))
 
+// IMPORTANT !!!
 // following would not be possible in java, only scala
 // offers covariant param as method argument (with given
 // restriction), same goes for contravariance...
@@ -57,3 +58,12 @@ val softDrinksVM: VendingMachine[SoftDrink] =
 def install(softDrinkVM: VendingMachine[_ <: SoftDrink]): Unit = {
   // Installs soft drink vending machine
 }
+
+
+// SUBTYPING
+val v: VendingMachine[SoftDrink]
+  = new VendingMachine[Cola](None, Nil)
+
+// following wil not compile
+//val v2: VendingMachine[Cola]
+//= new VendingMachine[SoftDrink](None, Nil)

@@ -1,8 +1,8 @@
 Variance
 
-C[+T]   =>  C[B] <: C[C]    if  B <: C
-C[-T]   =>  C[B] <: C[C]    if  B >: C
-C[T]    =>  C[B] = C[C]     only if  B = C
+C[+T]   =>  C[B] <: C[C]            if  B <: C (B subtype of C)
+C[-T]   =>  C[B] <: C[C]            if  B >: C (B supertype of C)
+C[T]    =>  C[B] assignable C[C]    only if  B = C
 
 Covariant types may appear in method result types OR method param types if lower bound is used
 
