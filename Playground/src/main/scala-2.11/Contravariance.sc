@@ -9,6 +9,4 @@ class GarbageCan[-A] {
 
   def itemsCount: Int = this.items.size
 
-  def getAll[B <: A]: List[B] = {items}
-
 }
