@@ -1,13 +1,39 @@
-trait C[T] {
-  def m(t: T)
+class Something
+class Creature extends Something
+class Human extends Creature
+class Dog extends Creature
+
+class SackInvariant[A] {}
+def install(softDrinkVM: SackInvariant[Creature]): Unit = {}
+install(new SackInvariant[Creature])
+//install(new SackInvariant[Human])
+//install(new SackInvariant[Something])
+def returnInvariant(): SackInvariant[Creature] = {
+  new SackInvariant[Creature]
 }
 
-val c = new C[Any] {
-  override def m(t: Any): Unit = {}
+class SackCovariant[+A] {}
+def install(softDrinkVM: SackCovariant[Creature]): Unit = {}
+install(new SackCovariant[Creature])
+install(new SackCovariant[Human])
+//install(new SackCovariant[Something])
+def returnCovariant(): SackCovariant[Creature] = {
+  new SackCovariant[Creature]   //imagine return
+  new SackCovariant[Human]
+  //new SackCovariant[Something]
 }
 
-c.m("")
-c.m(1)
+class SackContravariant[-A] {}
+def install(softDrinkVM: SackContravariant[Creature]): Unit = {}
+install(new SackContravariant[Creature])
+//install(new SackContravariant[Human])
+install(new SackContravariant[Something])
+def returnContravariant(): SackContravariant[Creature] = {
+  new SackContravariant[Creature] //imagine return
+  //new SackContravariant[Human]
+  new SackContravariant[Something]
+}
+
 
 
 sealed trait List[+A]
@@ -33,5 +59,6 @@ object List {
 
 
 val example = Cons(1, Cons(2, Cons(3, Nil)))
-val example2 = List(1,2,3)
 val total = List.sum(example)
+val example2: List[Any] = List(1,2,3, new Object())
+//val total2 = List.sum(example)
