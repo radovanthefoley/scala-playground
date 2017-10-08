@@ -34,6 +34,12 @@ trait C[T] {
     def m(p: T): T
 }
 
+Why methods arguments cannot be covariant, or if they are, why to obey lower bound?
+Because of problem in java with arrays that are covariant:
+
+Object[] arr = new String[]{"bla"}; // assignable thx to covariancy
+arr[0] = new Integer(3);            // nasty runtime ArrayStoreException
+
 ===============================================================================================
 
 Generators/own types used in for
