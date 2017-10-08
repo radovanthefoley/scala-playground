@@ -11,10 +11,10 @@ val primes = (xs: List[Int]) =>
   for (x <- xs;
        allFactors = factors(x)
        if allFactors.length == 2
-       if allFactors(0) == 1
-       if allFactors(1) == x
+       //if allFactors(0) == 1
+       //if allFactors(1) == x
   ) yield x
-primes(List(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12))
+primes(List(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12))
 
 case class Company(name: String, region: String, avgSalary: Int)
 
