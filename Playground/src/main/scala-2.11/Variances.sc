@@ -67,17 +67,15 @@ val example2: List[Any] = List(1,2,3, new Object())
 // covariance and contravariance subtyping
 //
 // Function[-T,+R]
-//
-// AnyVal
-//   ^
-// Int
-//   ^
-// Nothing
 
-val f1 = new Function[Int, Int] {
-  override def apply(v1: Int): Int = v1
+trait GrandParent
+class Parent extends GrandParent
+class Child extends Parent
+
+val f1 = new Function[Parent, Parent] {
+  override def apply(v1: Parent): Parent = v1
 }
-val f2: Function[Nothing, AnyVal] = f1
+val f2: Function[Child, GrandParent] = f1
 
 // f2 >: f1 (f1 is subtype of f2)
 // this holds in order for f1 to safely conform
