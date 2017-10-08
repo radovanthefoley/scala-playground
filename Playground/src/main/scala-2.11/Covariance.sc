@@ -35,8 +35,8 @@ val colasVM: VendingMachine[Cola] =
 val softDrinksVM: VendingMachine[SoftDrink] =
   colasVM.addAll(List(new TonicWater))
 
-// covariant params can be used as method reurn types
-// in java
+// covariant params can be used as method return types
+// only in java
 
 //List<? extends Number> numCovariant = new ArrayList<Integer>();
 //numCovariant.add(3);      //compilation error
