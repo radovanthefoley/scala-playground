@@ -62,3 +62,23 @@ val example = Cons(1, Cons(2, Cons(3, Nil)))
 val total = List.sum(example)
 val example2: List[Any] = List(1,2,3, new Object())
 //val total2 = List.sum(example)
+
+
+// covariance and contravariance subtyping
+//
+// Function[-T,+R]
+//
+// AnyVal
+//   ^
+// Int
+//   ^
+// Nothing
+
+val f1 = new Function[Int, Int] {
+  override def apply(v1: Int): Int = v1
+}
+val f2: Function[Nothing, AnyVal] = f1
+
+// f2 >: f1 (f1 is subtype of f2)
+// this holds in order for f1 to safely conform
+// restrictions coming from f2 contract
